@@ -13,7 +13,6 @@ class App extends Component {
     this.fetch = this.fetch.bind(this)
   }
   fetch(){
-    alert("haha")
     this.props.fetchPosts()
   }
   render(){
@@ -30,7 +29,7 @@ class App extends Component {
         <Headline header="Posts" desc="Click the button to render posts"/>
         <SharedButton {...configButton} />
         {
-          (posts >0)?<div>
+          (posts.length >0)?<div>
             {
               posts.map((post,index)=>{
                 const { title , body} = post;
