@@ -6,17 +6,37 @@ import ListItem from './component/listitem'
 import {connect} from 'react-redux'
 import { fetchPosts } from './actions'
 import './app.scss'
+
+const initialState ={
+  hideBtn:false
+}
 class App extends Component {
   constructor(props)
   {
     super(props)
     this.fetch = this.fetch.bind(this)
+    this.state={
+      ...initialState
+    }
   }
   fetch(){
     this.props.fetchPosts()
+    this.exampleMethod_updatesState()
+  }
+
+  exampleMethod_updatesState(){
+    const {hideBtn} = this.state
+    this.setState({
+      hideBtn:!hideBtn
+    })
+  }
+
+  exampleMethod_returnsValue(number){
+    return number+1;
   }
   render(){
     const {posts} = this.props;
+    const { hideBtn} = this.state
     const configButton = {
       buttonText :'Get posts',
       emitEvent:this.fetch
@@ -27,7 +47,7 @@ class App extends Component {
       <Header/>
       <section className="main">
         <Headline header="Posts" desc="Click the button to render posts"/>
-        <SharedButton {...configButton} />
+        {(!hideBtn && <SharedButton {...configButton} />)}
         {
           (posts.length >0)?<div>
             {
